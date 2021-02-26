@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 
+import os
+from dotenv import load_dotenv
 import requests
 import schedule
 import time
 from scrape import get_max_min_coins
 from tabletext import to_text
 
-API_KEY ="1668423663:AAG1A0HuGSZ1tv1AvLRus3ZDnHyFXCzSNdA"
-chat_id = '667939696'
-
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
+chat_id = os.getenv('chat_id')
 
 
 def bot_message():
@@ -17,14 +19,12 @@ def bot_message():
 	max_data_text = to_text(max_data)
 
 	message = "Top losers: \n" + min_data_text + "\n" + "Top gainers: \n" + max_data_text
-	
-	pre_url = 'https://api.telegram.org/bot1668423663:AAG1A0HuGSZ1tv1AvLRus3ZDnHyFXCzSNdA/sendMessage?chat_id=667939696&text='
-	url = pre_url + message
+	url = 'https://api.telegram.org/bot' + API_KEY + '/sendMessage?chat_id=' + chat_id + '&text=' + message
 	requests.get(url)
 
-# bot_message()
+#bot_message()
 
-schedule.every().day.at("19:49").do(bot_message)
+schedule.every().day.at("10:00").do(bot_message)
 
 while True:
     schedule.run_pending()
