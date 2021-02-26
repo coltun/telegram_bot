@@ -10,7 +10,8 @@ from tabletext import to_text
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
-CHAT_ID = os.getenv('chat_id')
+CHAT_ID = os.getenv('CHAT_ID')
+TIME_EXECUTION  = os.getenv('TIME_EXECUTION')
 
 
 def bot_message():
@@ -19,12 +20,12 @@ def bot_message():
 	max_data_text = to_text(max_data)
 
 	message = "Top losers: \n" + min_data_text + "\n" + "Top gainers: \n" + max_data_text
-	url = 'https://api.telegram.org/bot' + API_KEY + '/sendMessage?chat_id=' + chat_id + '&text=' + message
+	url = 'https://api.telegram.org/bot' + API_KEY + '/sendMessage?chat_id=' + CHAT_ID + '&text=' + message
 	requests.get(url)
 
 #bot_message()
 
-schedule.every().day.at("10:00").do(bot_message)
+schedule.every().day.at(TIME_EXECUTION).do(bot_message)
 
 while True:
     schedule.run_pending()
