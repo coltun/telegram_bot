@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
 import os
-from dotenv import load_dotenv
 import requests
 import schedule
 import time
+
+from dotenv import load_dotenv
 from scrape import get_max_min_coins
 from tabletext import to_text
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
 CHAT_ID = os.getenv('CHAT_ID')
-TIME_EXECUTION  = os.getenv('TIME_EXECUTION')
+EXECUTION_TIME = os.getenv('EXECUTION_TIME')
 
 
 def bot_message():
@@ -23,9 +24,7 @@ def bot_message():
 	url = 'https://api.telegram.org/bot' + API_KEY + '/sendMessage?chat_id=' + CHAT_ID + '&text=' + message
 	requests.get(url)
 
-#bot_message()
-
-schedule.every().day.at(TIME_EXECUTION).do(bot_message)
+schedule.every().day.at(EXECUTION_TIME).do(bot_message)
 
 while True:
     schedule.run_pending()
