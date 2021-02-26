@@ -10,7 +10,7 @@ from tabletext import to_text
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
-chat_id = os.getenv('chat_id')
+CHAT_ID = os.getenv('chat_id')
 
 
 def bot_message():
