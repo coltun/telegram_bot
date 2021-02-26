@@ -4,9 +4,9 @@ import os
 import requests
 import schedule
 import time
+import scrape
 
 from dotenv import load_dotenv
-from scrape import get_max_min_coins
 from tabletext import to_text
 
 load_dotenv()
@@ -16,7 +16,7 @@ EXECUTION_TIME = os.getenv('EXECUTION_TIME')
 
 
 def bot_message():
-	max_data, min_data = get_max_min_coins()
+	max_data, min_data = scrape.get_max_min_coins()
 	min_data_text = to_text(min_data)
 	max_data_text = to_text(max_data)
 
