@@ -1,11 +1,13 @@
+import os
+import dotenv
 import requests
 import json
-from tabletext import to_text
 
-url = "https://api.coinmarketcap.com/data-api/v3/cryptocurrency/listing?start=1&limit=100&sortBy=market_cap&sortType=desc&convert=USD&cryptoType=all&tagType=all"
+dotenv.load_dotenv()
+COINMARKETCAP_URL_API = os.getenv('COINMARKETCAP_URL_API')
 
 def get_max_min_coins(amount=20):
-	r = requests.get(url)
+	r = requests.get(COINMARKETCAP_URL_API)
 	data = (r.json())
 	coins = data['data']['cryptoCurrencyList']
 
